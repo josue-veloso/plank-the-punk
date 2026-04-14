@@ -162,10 +162,91 @@ nav a:hover, nav a.active { color: var(--color-accent); border-bottom: 1px solid
   line-height: 1.2;
 }
 
-.grid-item:hover .grid-item-info { opacity: 1; }
+.grid-item--video {
+  aspect-ratio: 16/7;
+}
+
+.grid-item--video iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+
+.grid-item[data-video] { cursor: pointer; }
+
+.grid-item[data-video]::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.grid-item[data-video]:hover::after,
+.grid-item[data-video].touched::after {
+  background-color: rgba(255,255,255,0.25);
+  opacity: 1;
+}
+
+.grid-item:not(.grid-item--video):hover .grid-item-info { opacity: 1; }
+
+/* ── MODAL ── */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.open { display: flex; }
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+}
+
+.modal-content {
+  position: relative;
+  width: 90vw;
+  max-width: 960px;
+  aspect-ratio: 16/9;
+  z-index: 1;
+}
+
+.modal-content iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: -36px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
 
 .grid-item-info h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 28px;
   letter-spacing: 0.06em;
   color: #fff;
@@ -237,7 +318,7 @@ nav a:hover, nav a.active { color: var(--color-accent); border-bottom: 1px solid
 }
 
 .contact-links a {
-  font-size: 13px;
+  font-size: 11px;
   color: var(--color-muted);
   letter-spacing: 0.08em;
   transition: color 0.2s, transform 0.2s;
@@ -269,6 +350,9 @@ footer {
   font-size: 12px;
   color: var(--color-muted);
 }
+
+.footer-inner a { color: var(--color-muted); transition: color 0.2s; }
+.footer-inner a:hover { color: #936bda; }
 
 .footer-links {
   display: flex;
@@ -309,6 +393,7 @@ footer {
 
   /* Bio */
   .bio-section { grid-template-columns: 1fr; gap: 32px; padding: 60px 20px; }
+  .bio-photo img { max-height: 420px; object-fit: cover; }
   .bio-text h2 { line-height: 1; }
 
   /* Contato */
